@@ -1,0 +1,9 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+<style name="Theme.GMessenger" parent="android:style/Theme.Material.Light.NoActionBar">
+    <item name="android:fontFamily">sans</item>
+    <item name="android:colorAccent">@color/gm_blue</item>
+    <item name="android:navigationBarColor">@android:color/white</item>
+    <item name="android:statusBarColor">@color/gm_blue</item>
+    <item name="android:windowLightStatusBar">false</item>
+</style>
+</resources>

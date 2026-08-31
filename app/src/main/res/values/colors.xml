@@ -1,0 +1,8 @@
+<resources>
+    <color name="gm_blue">#087FF5</color>
+    <color name="gm_blue_dark">#0668CE</color>
+    <color name="gm_bg">#F6F8FA</color>
+    <color name="gm_text">#17212B</color>
+    <color name="gm_muted">#687580</color>
+    <color name="gm_line">#E2E8ED</color>
+</resources>
