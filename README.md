@@ -1,4 +1,4 @@
-# G Messenger v18
+# G Messenger v21
 
 G Messenger v18 is a phone-first Android messaging UI inspired by contemporary messaging apps, using G Messenger branding.
 
@@ -27,7 +27,7 @@ The current verification screen uses `123456` as a local prototype code. Replace
 Paid-plan screens are informational/manual: payment is directed to the number shown by the app, and the app does not verify payments automatically.
 
 ## GitHub
-Push the project to the main branch. GitHub Actions builds `G-Messenger-v18-debug`.
+Push the project to the main branch. GitHub Actions builds the v21 debug APK.
 
 
 ## v18 Phone-Friendly Polish
@@ -58,3 +58,16 @@ The current client-side registry records verified users on this device. For prod
 - Existing v19 registered-contact rule is preserved: only registered G Messenger users can be added; unregistered contacts can only be invited.
 - Existing chats, updates, communities, calls, settings, profile, and Gemma AI UI are preserved.
 - Android launcher icon now uses the supplied blue-and-white logo.
+
+
+## G Messenger v21 — account isolation, safe chat bubbles and inline media
+- Each registered profile has its own contacts and chats stored under a profile-specific local key. A newly registered account starts with no contacts or chats.
+- Existing v19/v20 contact/chat data is migrated only to the profile that was active during the upgrade, preserving that user's existing work without sharing it with newly registered profiles.
+- Only registered G Messenger users can be added to chats. Unregistered phone contacts can only be invited.
+- Long messages wrap inside the chat bubble and never overflow the chat screen.
+- Image attachments render inline in the chat; PDFs and other files show an inline file preview/card.
+- A dedicated self-chat is available as **You**, with **You / yourself** shown in the header.
+- Existing updates, communities, channels, calls, settings, Gemma AI, blue/white branding, and other v20 UI are preserved.
+
+### v21 limitation
+The registration directory remains local in this demo. For two separate physical devices to discover one another as registered users, the same registration/contact rule must be connected to a shared backend such as Firebase with authenticated user records.

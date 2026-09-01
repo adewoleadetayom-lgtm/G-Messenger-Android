@@ -113,7 +113,7 @@ class MainActivity : Activity() {
             }
         }
         @JavascriptInterface fun openAndroidSettings() { runOnUiThread { startActivity(Intent(Settings.ACTION_SETTINGS)) } }
-        @JavascriptInterface fun version() = "18.0.0"
+        @JavascriptInterface fun version() = "21.0.0"
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
