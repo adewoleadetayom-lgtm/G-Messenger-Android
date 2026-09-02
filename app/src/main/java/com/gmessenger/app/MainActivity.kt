@@ -129,12 +129,12 @@ class MainActivity : Activity() {
     private fun generateGemma(prompt: String, callbackId: String) {
         val active = session
         if (active == null) {
-            web.evaluateJavascript("window.onGemmaResult && window.onGemmaResult(${JSONObject.quote(callbackId)}, ${JSONObject.quote(\"MODEL_NOT_READY\")})", null)
+            web.evaluateJavascript("window.onGemmaResult && window.onGemmaResult(${JSONObject.quote(callbackId)}, ${JSONObject.quote("MODEL_NOT_READY")})", null)
             return
         }
         executor.execute {
             val result = try {
-                active.generateResponse(prompt)
+                active.addQueryChunk(prompt); active.generateResponse()
             } catch (e: Exception) {
                 "ERROR: ${e.message ?: "Gemma inference failed"}"
             }
