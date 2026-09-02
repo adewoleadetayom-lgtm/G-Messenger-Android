@@ -1,13 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-    <uses-native-library android:name="libOpenCL.so" android:required="false"/>
-    <uses-native-library android:name="libOpenCL-car.so" android:required="false"/>
-    <uses-native-library android:name="libOpenCL-pixel.so" android:required="false"/>
+
     <application
         android:theme="@style/Theme.GMessenger"
         android:label="G Messenger"
@@ -16,11 +15,22 @@
         android:allowBackup="true"
         android:supportsRtl="true"
         android:hardwareAccelerated="true">
-        <activity android:name=".MainActivity" android:screenOrientation="portrait" android:exported="true">
+
+        <uses-native-library android:name="libOpenCL.so" android:required="false"/>
+        <uses-native-library android:name="libOpenCL-car.so" android:required="false"/>
+        <uses-native-library android:name="libOpenCL-pixel.so" android:required="false"/>
+
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
         </activity>
     </application>
+
 </manifest>
