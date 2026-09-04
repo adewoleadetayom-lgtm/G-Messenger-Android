@@ -1,0 +1,44 @@
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid"
+      }
+    },
+    "usersByPhone": {
+      "$phone": {
+        ".read": "auth != null",
+        ".write": "auth != null && newData.child('uid').val() === auth.uid"
+      }
+    },
+    "usersById": {
+      "$gmId": {
+        ".read": "auth != null",
+        ".write": "auth != null && newData.child('uid').val() === auth.uid"
+      }
+    },
+    "messages": {
+      "$uidA": {
+        "$uidB": {
+          ".read": "auth != null && (auth.uid === $uidA || auth.uid === $uidB)",
+          "$message": {
+            ".write": "auth != null && (auth.uid === $uidA || auth.uid === $uidB) && newData.child('senderUid').val() === auth.uid"
+          }
+        }
+      }
+    },
+    "generalMessages": {
+      ".read": "auth != null",
+      "$message": {
+        ".write": "auth != null && newData.child('senderUid').val() === auth.uid && newData.child('senderId').val() === 'gm_goodluck' && root.child('usersById/gm_goodluck/uid').val() === auth.uid"
+      }
+    },
+    "calls": {
+      "$callId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    }
+  }
+}
