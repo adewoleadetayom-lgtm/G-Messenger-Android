@@ -1,0 +1,18 @@
+G MESSENGER v26 — FIREBASE NEXT STEP
+
+The Firebase Web App configuration has been connected for project:
+g-messenger-10d39
+
+One value is still required before realtime messaging can work:
+databaseURL
+
+In Firebase Console:
+1. Open project g-messenger-10d39.
+2. Go to Build > Realtime Database.
+3. Click Create Database.
+4. Choose the database location.
+5. After it is created, copy the exact Database URL (already filled in the source) shown by Firebase.
+6. Put that URL into app/src/main/assets/firebase-config.js as databaseURL.
+
+Do not use public/temporary database rules for the final app. Deploy authenticated rules.
+Do not put service-account private keys in the app.

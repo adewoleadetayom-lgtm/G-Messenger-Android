@@ -1,0 +1,74 @@
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid && auth.token.phone_verified === true"
+      }
+    },
+    "usersByPhone": {
+      "$phone": {
+        ".read": "auth != null",
+        ".write": "auth != null && auth.token.phone_verified === true && newData.child('uid').val() === auth.uid && newData.child('phone').val() === $phone"
+      }
+    },
+    "usersById": {
+      "$gmId": {
+        ".read": "auth != null",
+        ".write": "auth != null && auth.token.phone_verified === true && newData.child('uid').val() === auth.uid"
+      }
+    },
+    "messages": {
+      "$uidA": {
+        "$uidB": {
+          ".read": "auth != null && auth.token.phone_verified === true && (auth.uid === $uidA || auth.uid === $uidB)",
+          "$message": {
+            ".write": "auth != null && auth.token.phone_verified === true && (auth.uid === $uidA || auth.uid === $uidB) && newData.child('senderUid').val() === auth.uid"
+          }
+        }
+      }
+    },
+    "groups": {
+      "$group": {
+        "messages": {
+          "$message": {
+            ".read": "auth != null && auth.token.phone_verified === true",
+            ".write": "auth != null && auth.token.phone_verified === true && newData.child('senderUid').val() === auth.uid"
+          }
+        }
+      }
+    },
+    "generalMessages": {
+      ".read": "auth != null && auth.token.phone_verified === true",
+      "$message": {
+        ".write": "auth != null && auth.token.phone_verified === true && auth.token.admin === true && newData.child('senderUid').val() === auth.uid"
+      }
+    },
+    "calls": {
+      "$callId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+    "notificationTokens": {
+      "$uid": {
+        "$token": {
+          ".read": "auth != null && auth.token.phone_verified === true && auth.uid === $uid",
+          ".write": "auth != null && auth.token.phone_verified === true && auth.uid === $uid"
+        }
+      }
+    },
+    "subscriptions": {
+      "$uid": {
+        ".read": "auth != null && auth.token.phone_verified === true && (auth.uid === $uid || auth.token.admin === true)",
+        ".write": "auth != null && auth.token.phone_verified === true && (auth.uid === $uid || auth.token.admin === true)"
+      }
+    },
+    "groupMeta": {
+      "$group": {
+        ".read": "auth != null && auth.token.phone_verified === true",
+        ".write": "auth != null && auth.token.phone_verified === true && auth.token.admin === true"
+      }
+    }
+  }
+}

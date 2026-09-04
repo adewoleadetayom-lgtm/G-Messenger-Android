@@ -1,0 +1,19 @@
+G Messenger v26 notifications + subscriber verification
+
+1. Build the Android app. The app registers its FCM token under notificationTokens/<anonymous-auth-uid>.
+2. Deploy Realtime Database rules and Cloud Functions from the project root:
+   firebase deploy --only database,functions
+3. Cloud Functions send message notifications to registered FCM tokens for private chats, groups, and General.
+4. Android 13+ requires the notification permission; the app requests it on first launch.
+5. Subscriber payments are NOT automatically verified. A user submits a plan and payment reference to subscriptions/<uid>. The gm_goodluck admin can approve/reject it in Admin panel.
+6. Do not add service-account private keys to the APK or source repository.
+
+
+REAL REGISTRATION VERIFICATION
+- Enable Firebase Authentication > Phone provider.
+- Configure the SMS region policy for Nigeria.
+- Add the SHA-1 and SHA-256 fingerprints of the Android signing key used for the build in Firebase Project Settings.
+- Firebase Phone Authentication uses app verification (Play Integrity/reCAPTCHA as applicable).
+- The app no longer accepts the old prototype code 123456.
+- Deploy the Cloud Functions before testing registration because the secure ID-token exchange endpoint is required.
+- Never place Firebase Admin service-account credentials in the APK or repository.
