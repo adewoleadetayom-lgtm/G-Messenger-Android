@@ -7,6 +7,10 @@ android {
     namespace 'com.gmessenger.app'
     compileSdk 35
 
+buildFeatures {
+    buildConfig true
+}
+
     defaultConfig {
         applicationId 'com.gmessenger.app'
         minSdk 26
