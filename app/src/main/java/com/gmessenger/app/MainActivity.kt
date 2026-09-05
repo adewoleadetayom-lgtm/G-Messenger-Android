@@ -247,7 +247,10 @@ class MainActivity : Activity() {
                     signInWithPhoneCredential(credential)
                 }
                 override fun onVerificationFailed(e: com.google.firebase.FirebaseException) {
-                    runOnUiThread { web.evaluateJavascript("window.onPhoneAuthError && window.onPhoneAuthError(${JSONObject.quote(e.message ?: "Phone verification failed")})", null) }
+                    runOnUiThread {
+    val detail = "Firebase error: ${e.javaClass.simpleName} — ${e.message ?: "Phone verification failed"}"
+    web.evaluateJavascript("window.onPhoneAuthError && window.onPhoneAuthError(${JSONObject.quote(detail)})", null)
+}
                 }
                 override fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken) {
                     phoneVerificationId = verificationId
