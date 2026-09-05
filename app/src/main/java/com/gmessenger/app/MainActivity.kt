@@ -36,6 +36,7 @@ class MainActivity : Activity() {
     private var gemmaModelFile: File? = null
     private var pushToken: String? = null
     private var phoneVerificationId: String? = null
+    private var phoneResendToken: PhoneAuthProvider.ForceResendingToken? = null
     private var phoneAuth: FirebaseAuth? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -254,6 +255,7 @@ class MainActivity : Activity() {
                 }
                 override fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken) {
                     phoneVerificationId = verificationId
+                    phoneResendToken = token
                     runOnUiThread { web.evaluateJavascript("window.onPhoneCodeSent && window.onPhoneCodeSent(${JSONObject.quote(phone)})", null) }
                 }
             }
@@ -262,6 +264,9 @@ class MainActivity : Activity() {
                 .setTimeout(60L, java.util.concurrent.TimeUnit.SECONDS)
                 .setActivity(this@MainActivity)
                 .setCallbacks(callbacks)
+                .apply {
+                    phoneResendToken?.let { setForceResendingToken(it) }
+                }
                 .build()
             PhoneAuthProvider.verifyPhoneNumber(options)
         }
