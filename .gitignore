@@ -1,0 +1,16 @@
+# Android/Gradle
+.gradle/
+build/
+app/build/
+*.apk
+*.aab
+local.properties
+
+# Firebase / secrets
+app/google-services.json
+**/service-account*.json
+.firebase/
+
+# Node
+functions/node_modules/
+npm-debug.log*

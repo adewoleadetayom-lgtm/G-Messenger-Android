@@ -1,0 +1,24 @@
+G MESSENGER v27 — GOOGLE SERVICES SETUP
+
+The Android source intentionally does not commit app/google-services.json.
+
+For GitHub Actions:
+1. Open your downloaded google-services.json.
+2. Base64-encode it.
+3. In GitHub: Settings -> Secrets and variables -> Actions -> New repository secret.
+4. Name the secret exactly:
+   GOOGLE_SERVICES_JSON_B64
+5. Paste the base64 value and save.
+
+Termux example:
+  base64 -w 0 app/google-services.json
+On Android/Termux versions where -w is unavailable:
+  base64 app/google-services.json | tr -d '\n'
+
+Firebase deployment:
+Create a Firebase/GCP service-account key for project g-messenger-10d39 and store the JSON contents as the GitHub Actions secret:
+  FIREBASE_SERVICE_ACCOUNT_JSON
+
+Never commit either secret to the repository.
+
+After the secrets are present, pushing branch v27-final starts the APK build and Firebase deployment workflows.

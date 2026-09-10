@@ -1,0 +1,21 @@
+G Messenger v27 — Firebase notifications
+
+Authentication
+- Google account authentication only.
+- SMS/Phone authentication is not required by the v27 app.
+- Realtime Database access uses the google_verified custom claim.
+
+Notifications
+1. The Android app registers its FCM token under notificationTokens/<Firebase UID>.
+2. Android 13+ requires POST_NOTIFICATIONS permission; the app requests it on first launch.
+3. Cloud Functions send notifications for private messages, groups, and the official General G Messenger feed.
+4. Deploy Database rules and Functions before testing production notifications.
+
+Subscriptions
+- Subscriber payments are NOT automatically verified.
+- A user submits a plan/payment reference to subscriptions/<uid>.
+- An authorized G Messenger admin can approve/reject it.
+
+Security
+- Never put Firebase Admin service-account private keys in the APK or source repository.
+- Store FIREBASE_SERVICE_ACCOUNT_JSON only as a GitHub Actions secret.

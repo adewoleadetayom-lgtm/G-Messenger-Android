@@ -1,0 +1,32 @@
+G MESSENGER v27 — FIREBASE + GOOGLE + GITHUB SETUP
+
+Project: g-messenger-10d39
+Android package: com.gmessenger.app
+Authentication: Google only (no SMS verification)
+
+LOCAL SOURCE
+- firebase.rules.json uses google_verified claims.
+- functions/index.js verifies Google Firebase ID tokens.
+- Administrator emails are allowlisted on the server.
+- calls are readable/writable only by the verified caller or callee.
+- app uses Firebase Auth, Realtime Database, FCM, Credential Manager and Google ID.
+
+GITHUB ACTIONS
+The Android workflow requires a GitHub Actions secret:
+  GOOGLE_SERVICES_JSON_B64
+
+Create it by base64-encoding the downloaded google-services.json and storing the result as the secret. The workflow restores it during the build and does not commit the JSON into the repository.
+
+Firebase deployment workflow requires:
+  FIREBASE_SERVICE_ACCOUNT_JSON
+
+This must be the JSON contents of a Firebase/GCP service-account key with permission to deploy the project's Realtime Database rules and Cloud Functions. Store it only as a GitHub Actions secret.
+
+After both secrets are configured, push v27-final. GitHub Actions will:
+1. Restore google-services.json.
+2. Build the complete G Messenger v27 debug APK.
+3. Upload the APK as a workflow artifact.
+4. Deploy Firebase Database rules and Cloud Functions.
+
+Do not commit service-account private keys to GitHub.
+Do not put FIREBASE_SERVICE_ACCOUNT_JSON into app source code.
