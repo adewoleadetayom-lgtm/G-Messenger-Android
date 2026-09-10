@@ -23,6 +23,7 @@ import org.json.JSONObject
 import java.io.File
 import java.io.FileOutputStream
 import java.util.concurrent.Executors
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     private lateinit var web: WebView
@@ -328,8 +329,13 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray,
+        deviceId: Int
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults, deviceId)
         if (requestCode == 303 && grantResults.all { it == PackageManager.PERMISSION_GRANTED }) web.evaluateJavascript("window.onAndroidContactsPermissionGranted && window.onAndroidContactsPermissionGranted()", null)
         if (requestCode == 300 && grantResults.all { it == PackageManager.PERMISSION_GRANTED }) { pendingMediaRequest?.grant(pendingMediaRequest?.resources ?: emptyArray()); pendingMediaRequest = null }
     }
