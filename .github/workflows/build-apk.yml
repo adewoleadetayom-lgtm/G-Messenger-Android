@@ -48,6 +48,14 @@ jobs:
       - name: Validate Cloud Functions JavaScript
         run: node --check functions/index.js
 
+      - name: Show debug signing SHA-1
+        run: |
+          keytool -list -v \
+            -alias androiddebugkey \
+            -keystore "$HOME/.android/debug.keystore" \
+            -storepass android \
+            -keypass android | grep -E "SHA1:|SHA-256:"
+
       - name: Build debug APK
         run: gradle --no-daemon clean :app:assembleDebug
 
